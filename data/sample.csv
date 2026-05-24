@@ -1,0 +1,11 @@
+id,title,category,year,description
+1,The Pragmatic Programmer,Software,1999,A classic guide on practical software craftsmanship covering topics like DRY principles automation and pragmatic thinking.
+2,Clean Code,Software,2008,Robert C. Martin's handbook on writing readable maintainable code with naming functions and refactoring guidelines.
+3,Designing Data-Intensive Applications,Data,2017,Martin Kleppmann explains the architecture of reliable scalable systems including replication partitioning and consistency.
+4,Sapiens,History,2011,Yuval Noah Harari traces the history of humankind from the cognitive revolution to the modern scientific era.
+5,Atomic Habits,Self-Help,2018,James Clear presents a framework for building good habits and breaking bad ones through small incremental changes.
+6,The Lean Startup,Business,2011,Eric Ries introduces validated learning and the build-measure-learn loop for building startups under uncertainty.
+7,Thinking Fast and Slow,Psychology,2011,Daniel Kahneman describes the two systems of thought that drive the way we make decisions and judgments.
+8,Elasticsearch The Definitive Guide,Data,2015,A practical introduction to full-text search analytics and distributed document storage with Elasticsearch.
+9,Deep Learning,AI,2016,Goodfellow Bengio and Courville provide a comprehensive textbook on neural networks and modern deep learning methods.
+10,The Phoenix Project,Business,2013,A novel about IT DevOps and how a struggling team turns around a critical project under intense pressure.

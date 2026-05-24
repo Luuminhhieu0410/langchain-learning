@@ -64,6 +64,7 @@ async function insertElasticsearch () {
 }
 
 async function main() {
+    // await insertElasticsearch();
     const response = await client.search({
         index: "docs",
         query: {
@@ -71,6 +72,6 @@ async function main() {
         },
     });
 
-    console.log(response.hits.hits[0]._source);
+    console.log(response.hits.hits);
 }
 main();
