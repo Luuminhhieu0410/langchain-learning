@@ -6,7 +6,7 @@ const SYSTEM_PROMPT = [
   "Answer using ONLY the information in the provided context.",
   "If the answer is not contained in the context, say you don't have enough information in the dataset — do not guess.",
   "When useful, cite the supporting rows by their bracketed number, e.g. [2].",
-  "Keep answers concise and factual.",
+  "",
 ].join(" ");
 
 const prompt = ChatPromptTemplate.fromMessages([

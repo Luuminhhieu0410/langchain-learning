@@ -6,6 +6,7 @@ import { config } from "./config.js";
 import { esClient } from "./elasticsearch.js";
 import { getVectorStore } from "./vectorstore.js";
 import { logger } from "./logger.js";
+import {client} from "../elasticsearch.js";
 
 const BATCH_SIZE = 200;
 
@@ -40,7 +41,6 @@ async function main() {
   // CSVLoader with no `column` option turns each row into one document whose
   // pageContent is "header: value" for every column — so a query can match on
   // any field. One CSV row = one Document.
-  logger.info({ file: absPath }, "Loading CSV");
   const rows = await new CSVLoader(absPath).load();
   logger.info({ rows: rows.length }, "Loaded rows");
 
@@ -52,25 +52,25 @@ async function main() {
 
   // Long free-text columns can exceed embedding limits; split defensively.
   // Short rows pass through as a single chunk.
-  const splitter = new RecursiveCharacterTextSplitter({
-    chunkSize: config.CHUNK_SIZE,
-    chunkOverlap: config.CHUNK_OVERLAP,
-  });
-  const chunks = await splitter.splitDocuments(rows);
+  // const splitter = new RecursiveCharacterTextSplitter({
+  //   chunkSize: config.CHUNK_SIZE,
+  //   chunkOverlap: config.CHUNK_OVERLAP,
+  // });
+  // const chunks = await splitter.splitDocuments(rows);
 
   const source = path.basename(absPath);
-  for (const chunk of chunks) {
+  for (const chunk of rows) {
     chunk.metadata = { ...chunk.metadata, source };
   }
-  logger.info({ chunks: chunks.length }, "Split into chunks; embedding + indexing");
+  logger.info({ chunks: rows.length }, "Split into chunks; embedding + indexing");
 
-  for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
-    const batch = chunks.slice(i, i + BATCH_SIZE);
+  for (let i = 0; i < rows.length; i += BATCH_SIZE) {
+    const batch = rows.slice(i, i + BATCH_SIZE);
     // addDocuments creates the index (dense_vector + text mapping) on first
     // call, embeds the batch, and bulk-inserts it.
     await store.addDocuments(batch);
     logger.info(
-      { indexed: Math.min(i + BATCH_SIZE, chunks.length), total: chunks.length },
+      { indexed: Math.min(i + BATCH_SIZE, rows.length), total: rows.length },
       "Indexed batch",
     );
   }
